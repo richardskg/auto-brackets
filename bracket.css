@@ -55,7 +55,7 @@ table.gridtable td.title {
   top: 0;
   width: 950px;
 }
-#bracket .round strong, #bracket .round strong span.seed, #bracket .round strong span.score {
+#bracket .round .winner, #bracket .round .winner span.seed, #bracket .round .winner span.score {
   color: #4aa5ef;
 }
 #bracket #round2 {
@@ -232,8 +232,8 @@ table.gridtable td.title {
 #bracket #round6 .slot2 {
   top: 48px;
 }
-#bracket #round6 strong, #bracket #round6 strong span.seed, #bracket #round6 strong span.score {
-  color: #c52000;
+#bracket #round6 .winner, #bracket #round6 .winner span.seed, #bracket #round6 .winner span.score {
+  color: #fc2b28;
 }
 #bracket h3, #bracket h4 {
   display: none;
@@ -288,11 +288,11 @@ table.gridtable td.title {
   font-size: 16px;
   background: #fff;
 }
-#bracket .loser, #bracket strike {
+#bracket .loser, #bracket .loser {
   font-weight: normal;
   color: #777777;
   text-decoration: line-through;
 }
-#bracket strike a {
+#bracket .loser a {
   color: #666;
 }

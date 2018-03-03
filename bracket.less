@@ -1,10 +1,10 @@
 /* =================== */
 /* bracket setup       */
 /* =================== */
-@winner: #4AA5EF; 
-@loser:  #777777; 
-@champ:  #C52000;
-@round: #B3D4EF; 
+@winner: #4AA5EF;
+@loser:  #777777;
+@champ:  #fc2b28;
+@round: #B3D4EF;
 body.bracket #content-wrapper { width: 970px; padding-top: 10px; margin: 0 auto; }
 body.bracket #content-wrapper .content { width: 950px; padding: 15px 10px; }
 body.bracket { font-family: 'Helvetica Neue', Helvetica, Arial, FreeSans, sans-serif; }
@@ -16,7 +16,7 @@ table.gridtable td { border-width: 1px; padding: 8px; border-style: solid; borde
 table.gridtable td.title { background: #ccc; font-weight: bold; }
 #bracket { margin-top: 15px; height: 1000px; position: relative; }
 #bracket .round { position: absolute; top: 0; width: 950px; }
-#bracket .round strong, #bracket .round strong span.seed, #bracket .round strong span.score { color: @winner; }
+#bracket .round .winner, #bracket .round .winner span.seed, #bracket .round .winner span.score { color: @winner; }
 #bracket #round2 { left: 115px; width: 720px; }
 #bracket #round3 { left: 230px; width: 490px; }
 #bracket #round4 { left: 345px; width: 260px; }
@@ -67,7 +67,7 @@ table.gridtable td.title { background: #ccc; font-weight: bold; }
 #bracket #round6 .selected { font-size: 16px; background: #D7E8F0; }
 #bracket #round6 .slot1 { border-bottom: 1px solid #666; top: 22px; }
 #bracket #round6 .slot2 { top: 48px; }
-#bracket #round6 strong, #bracket #round6 strong span.seed, #bracket #round6 strong span.score { color: @champ; }
+#bracket #round6 .winner, #bracket #round6 .winner span.seed, #bracket #round6 .winner span.score { color: @champ; }
 #bracket h3, #bracket h4 { display: none; }
 #bracket #round1 h4 { display: block; position: absolute; left: 170px; top: 165px; width: 150px; }
 #bracket #round1 .region3 h4, #bracket #round1 .region4 h4 { left: auto; right: 170px; text-align: right; }
@@ -81,5 +81,5 @@ table.gridtable td.title { background: #ccc; font-weight: bold; }
 #bracket .region1 .match, #bracket .region2 .match { border-left: 0px; }
 #bracket .region3 .match, #bracket .region4 .match { border-right: 0px; }
 #bracket .final_pick { font-size: 16px; background: #fff; }
-#bracket .loser, #bracket strike { font-weight: normal; color: @loser; text-decoration: line-through; }
-#bracket strike a { color: #666; }
+#bracket .loser, #bracket .loser { font-weight: normal; color: @loser; text-decoration: line-through; }
+#bracket .loser a { color: #666; }
