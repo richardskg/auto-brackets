@@ -14,6 +14,23 @@ table.gridtable { font-size: 11px; color: #333333; border-width: 1px; border-col
 table.gridtable th { background-color: @round; padding: 8px; width: 69.4px; border: 1px solid #fff; }
 table.gridtable td { border-width: 1px; padding: 8px; border-style: solid; border-color: #fff; background-color: #ffffff; text-align: center; }
 table.gridtable td.title { background: #ccc; font-weight: bold; }
+#firstFour { margin-top: 5px; padding-bottom: 35px; height: 100px; position: relative; }
+#firstFour .round { position: absolute; top: 10; width: 950px; }
+#firstFour #round1 .match { height: 40px; }
+#firstFour .match { border: 1px solid #444; padding: 0; width: 114px; position: absolute; font-size: 12px; }
+#firstFour .m1 { left: 30; border-left: none; }
+#firstFour .m2 { left: 260px; border-left: none;}
+#firstFour .m3 { left: 575px; border-right: none;}
+#firstFour .m4 { left: 805px; border-right: none;}
+#firstFour .match .slot { margin: 0; position: absolute; left: 0; right: 0; padding: 0 4px; }
+#firstFour .match .slot1 { top: 0px; }
+#firstFour .match .slot2 { bottom: 0px; }
+#firstFour .match .seed { color: #777; font-size: 10px; }
+#firstFour .match .winner, #firstFour .match .winner em { font-weight: bold; }
+#firstFour .round .winner, #firstFour .round .winner span.seed, #firstFour .round .winner span.score { color: @winner; }
+#firstFour .loser, #firstFour .loser { font-weight: normal; color: @loser; text-decoration: line-through; }
+
+#bracket .centered {margin:auto; width:25%}
 #bracket { margin-top: 15px; height: 1000px; position: relative; }
 #bracket .round { position: absolute; top: 0; width: 950px; }
 #bracket .round .winner, #bracket .round .winner span.seed, #bracket .round .winner span.score { color: @winner; }
@@ -26,6 +43,7 @@ table.gridtable td.title { background: #ccc; font-weight: bold; }
 #bracket .round .region3 .match, #bracket .round .region4 .match { right: 0px; }
 #bracket .match { border: 1px solid #444; padding: 0; width: 114px; position: absolute; font-size: 12px; }
 #bracket #round1 .match { height: 40px; }
+#bracket #round1 .m1 { top: 0; }
 #bracket #round1 .m1 { top: 0; }
 #bracket #round1 .m2 { top: 50px; }
 #bracket #round1 .m3 { top: 100px; }

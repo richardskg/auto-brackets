@@ -41,7 +41,9 @@
   </div>
 
 <!-- Bracket -->
+
   <div id="bracket">
+    <div class="centered">Projected Teams!!! <p> Real teams and seeds coming Monday March 12th. </div>
     <div id="round1" class="round">
       <h3>
         Round One (2012 NCAA Men's Basketball Tournament)
@@ -221,10 +223,33 @@
       </div>
     </div>
   </div>
+
+
+  <div id="firstFour">
+      <div id="round1" class = round>
+          <div class="region region1">
+            <h3 class="region1 first_region">
+              First Four
+            </h3>
+            <div id="match100" class="match m1"></div>
+            <div id="match101" class="match m2"></div>
+            <div id="match102" class="match m3"></div>
+            <div id="match103" class="match m4"></div>
+          </div>
+      </div>
+  </div>
+
+
 </div>
 
 <script>
 
+var firstFourTeams = [
+    [16, "ff1-1", 16, "ff1-2", 16], // go to Midwest  16, 1
+    [11, "ff2-1", 11, "ff2-1", 12],  // go to South 28, 1
+    [11, "ff3-1", 11, "ff3-2", 4], // go to EAST, 4,1
+    [16, "ff4-1", 16, "ff4-2", 0], // go to EAST, 0,1
+]
 var teams = [
   // East
   [1, "Pitt", 16, "E Tenn St"],
@@ -265,12 +290,37 @@ var teams = [
 ]
 
 // This is hard coded to only work for a tournament with 64 main teams (the first round is handled separately)
-// First put the teams in their starting postions
+// First create the slots that the teams will go into
+// First FOUR
+for(i=100; i<104; i++) {
+    var matchId = "match" + i
+    if (document.getElementById(matchId)) {
+        document.getElementById(matchId).innerHTML = '<p class="slot slot1" ></p><p class="slot slot2" ></p>'
+    }
+}
+// Main Bracket
 for(i=0; i<64; i++) {
     var matchId = "match" + (i + 1)
     if (document.getElementById(matchId)) {
         document.getElementById(matchId).innerHTML = '<p class="slot slot1" ></p><p class="slot slot2" ></p>'
-    }}
+    }
+}
+
+// Nextput the teams in their starting postions
+// First FOUR
+for (i=0; i<4; i++) {
+    var matchId = "match" + (100 + i)
+    if (document.getElementById(matchId)) {
+        document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="seed">' + firstFourTeams[i][0] + '</span><span class="team"> ' + firstFourTeams[i][1] + ' </span>'
+        document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="seed">' + firstFourTeams[i][2] + '</span><span class="team"> ' + firstFourTeams[i][3] + ' </span>'
+    } else {
+        console.debug("missing: " + matchId)
+    }
+}
+// We need to play the firstFour so we know who is in the main bracket
+advanceFirstFourWinners()
+
+// Main Bracket
 for (i=0; i<32; i++) {
     var matchId = "match" + (i + 1)
     if (document.getElementById(matchId)) {
@@ -281,12 +331,7 @@ for (i=0; i<32; i++) {
     }
 }
 
-var timeout = 1000
-// window.setTimeout(function(){ advanceWinner(0,  32, true) },timeout)
-// window.setTimeout(function(){ advanceWinner(48, 56, true) },timeout)
-// window.setTimeout(function(){ advanceWinner(60, 62, true) },timeout)
-// window.setTimeout(function(){ advanceWinner(62, 63, false) },timeout)
-
+// var timeout = 1000
 // window.setTimeout(function(){ advanceWinner(0,  32, true) },timeout)
 // window.setTimeout(function(){ advanceWinner(32, 48, true) },timeout*2)
 // window.setTimeout(function(){ advanceWinner(48, 56, true) },timeout*3)
@@ -339,6 +384,32 @@ function advanceWinner(start, stop, doAdvance) {
     }
 }
 
+
+function advanceFirstFourWinners() {
+    for (i=0; i<4; i++) {
+        var matchId = "match" + (100 + i)
+        seed = firstFourTeams[i][0]
+        var winner = playThem(seed, seed)
+        var winnerName = ""
+        var loserName = ""
+        if (winner == 1) {
+            winnerName = firstFourTeams[i][1]
+            loserName = firstFourTeams[i][3]
+                        // mark the winner and loser
+            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="winner"><span class="seed">' + seed + '</span><span class="team"> ' + winnerName + ' </span></span>'
+            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="loser"><span class="seed">' + seed + '</span><span class="team"> ' + loserName + ' </span></span>'
+        } else {
+            winnerName = firstFourTeams[i][3]
+            loserName = firstFourTeams[i][1]
+            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="loser"><span class="seed">' + seed + '</span><span class="team"> ' + loserName + ' </span></span>'
+            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="winner"><span class="seed">' + seed + '</span><span class="team"> ' + winnerName + ' </span></span>'
+        }
+
+        // Advance them by putting them in the main teams array
+        teams[firstFourTeams[i][4]][3] = winnerName
+    }
+}
+
 function playThem(seed1, seed2) {
     // Simplifies logic if seed1 is always the lower (better) seed.
     var switched = false
@@ -354,9 +425,9 @@ function playThem(seed1, seed2) {
     // f(0) = 0.5 -- even odds
     // f(15) = 0.99 -- seed1 99% win rate, 1 seed vs 16
     var x = seed2 - seed1
-    var b = 1.5
+    var b = 0.6
     var a = 0.49/Math.pow(15, b)
-    var factor = a * Math.pow(x, b) + 0.5
+    var factor = (a * Math.pow(x, b)) + 0.5
 
     // console.log("rand: " + precisionRound(rand, 2) + " factor: " + precisionRound(factor,2))
 
