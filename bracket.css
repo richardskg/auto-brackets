@@ -48,6 +48,7 @@ table.gridtable td.title {
 }
 #firstFour {
   margin-top: 5px;
+  padding-bottom: 35px;
   height: 100px;
   position: relative;
 }
@@ -117,6 +118,9 @@ table.gridtable td.title {
 #bracket .centered {
   margin: auto;
   width: 25%;
+}
+#bracket .instructions {
+  font-size: 12px;
 }
 #bracket {
   margin-top: 15px;

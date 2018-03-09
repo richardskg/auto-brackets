@@ -43,7 +43,10 @@
 <!-- Bracket -->
 
   <div id="bracket">
-    <div class="centered">Projected Teams!!! <p> Real teams and seeds coming Monday March 12th. </div>
+    <div class="centered instructions">
+        Projected Teams!!! Real teams and seeds coming Monday March 12th. <p>
+            Boring<input id="insanity" type="range" onclick=advanceEverybody()>Insane</input>
+    </div>
     <div id="round1" class="round">
       <h3>
         Round One (2012 NCAA Men's Basketball Tournament)
@@ -245,106 +248,116 @@
 <script>
 
 var firstFourTeams = [
-    [16, "ff1-1", 16, "ff1-2", 16], // go to Midwest  16, 1
-    [11, "ff2-1", 11, "ff2-1", 12],  // go to South 28, 1
-    [11, "ff3-1", 11, "ff3-2", 4], // go to EAST, 4,1
-    [16, "ff4-1", 16, "ff4-2", 0], // go to EAST, 0,1
+    [16, "Texas", 16, "USC", 28], // go to West  28,
+    [11, "SE Louisiana", 11, "ArkansaPine Bluff", 12],  // go to South 12
+    [11, "Louisville", 11, "UCLA", 4], // go to EAST, 4
+    [16, "Hampton", 16, "LIU Brooklyn", 0], // go to EAST, 0,1
 ]
 var teams = [
   // East
-  [1, "Pitt", 16, "E Tenn St"],
-  [8, "Okla St", 9, "Tennessee"],
-  [5, "FSU", 12, "Wisconsin"],
-  [4, "Xavier", 13, "Portland St"],
-  [6, "UCLA", 11, "VCU"],
-  [3, "Villanova", 14, "American"],
-  [7, "Texas", 10, "Minnesota"],
-  [2, "Duke", 15, "Binghamton"],
+  [1, "Villanova", 16, "ff1"],
+  [8, "Rhode Island", 9, "NC St"],
+  [5, "Florida", 12, "Louisiana"],
+  [4, "Gonzaga", 13, "Murray St"],
+  [6, "TCU", 11, "ff2"],
+  [3, "Michigan", 14, "Bucknell"],
+  [7, "Arkansas", 10, "Providence"],
+  [2, "Duke", 15, "Lipscomb"],
   // South
-  [1, "UNC", 16, "Radford"], //  <---------------
-  [8, "s-Okla St", 9, "s-Tennessee"],
-  [5, "s-FSU", 12, "s-Wisconsin"],
-  [4, "s-Xavier", 13, "s-Portland St"],
-  [6, "s-UCLA", 11, "s-VCU"],
-  [3, "s-Villanova", 14, "s-American"],
-  [7, "s-Texas", 10, "s-Minnesota"],
-  [2, "s-Duke", 15, "s-Binghamton"],
+  [1, "Virginia", 16, "ff3"], //  <---------------
+  [8, "Missouri", 9, "Tennessee"],
+  [5, "Ohio St", 12, "Middle Tennessee"],
+  [4, "Texas Tech", 13, "Buffalo"],
+  [6, "Miami", 11, "Baylor"],
+  [3, "Auburn", 14, "Charleston"],
+  [7, "Seton Hall", 10, "Kansas St"],
+  [2, "Cincinnati", 15, "Iona"],
   // Midwest
-  [1, "m-Pitt", 16, "m-E Tenn St"],
-  [8, "m-Okla St", 9, "m-Tennessee"],
-  [5, "m-FSU", 12, "m-Wisconsin"],
-  [4, "m-Xavier", 13, "m-Portland St"],
-  [6, "m-UCLA", 11, "m-VCU"],
-  [3, "m-Villanova", 14, "m-American"],
-  [7, "m-Texas", 10, "m-Minnesota"],
-  [2, "m-Duke", 15, "m-Binghamton"],
+  [1, "Xavier", 16, "Harvard"],
+  [8, "Virginia Tech", 9, "Oklahoma"],
+  [5, "Clemson", 12, "Loyola-Chicago"],
+  [4, "Wichita St", 13, "Vermont"],
+  [6, "Nevada", 11, "Arizona St"],
+  [3, "Tennessee", 14, "Montana"],
+  [7, "Texas A&M", 10, "Saint Mary's"],
+  [2, "Purdue", 15, "Wright St"],
   // West
-  [1, "w-Pitt", 16, "w-E Tenn St"],
-  [8, "w-Okla St", 9, "w-Tennessee"],
-  [5, "w-FSU", 12, "w-Wisconsin"],
-  [4, "w-Xavier", 13, "w-Portland St"],
-  [6, "w-UCLA", 11, "w-VCU"],
-  [3, "w-Villanova", 14, "w-American"],
-  [7, "w-Texas", 10, "w-Minnesota"],
-  [2, "w-Duke", 15, "w-Binghamton"]
+  [1, "Kansas", 16, "Radford"],
+  [8, "Creighton", 9, "Florida St"],
+  [5, "West Virginia", 12, "New Mexico St"],
+  [4, "Arizona", 13, "South Dakota St"],
+  [6, "Kentucky", 11, "ff4"],
+  [3, "Michigan St", 14, "UNC Greensboro"],
+  [7, "Houston", 10, "St Bonaventure"],
+  [2, "North Carolina", 15, "UC Davis"]
 ]
 
+setup();
+advanceEverybody();
+
+function setup() {
+    document.getElementById("insanity").value = 50
 // This is hard coded to only work for a tournament with 64 main teams (the first round is handled separately)
 // First create the slots that the teams will go into
 // First FOUR
-for(i=100; i<104; i++) {
-    var matchId = "match" + i
-    if (document.getElementById(matchId)) {
-        document.getElementById(matchId).innerHTML = '<p class="slot slot1" ></p><p class="slot slot2" ></p>'
+    for(i=100; i<104; i++) {
+        var matchId = "match" + i
+        if (document.getElementById(matchId)) {
+            document.getElementById(matchId).innerHTML = '<p class="slot slot1" ></p><p class="slot slot2" ></p>'
+        }
     }
-}
-// Main Bracket
-for(i=0; i<64; i++) {
-    var matchId = "match" + (i + 1)
-    if (document.getElementById(matchId)) {
-        document.getElementById(matchId).innerHTML = '<p class="slot slot1" ></p><p class="slot slot2" ></p>'
+    // Main Bracket
+    for(i=0; i<64; i++) {
+        var matchId = "match" + (i + 1)
+        if (document.getElementById(matchId)) {
+            document.getElementById(matchId).innerHTML = '<p class="slot slot1" ></p><p class="slot slot2" ></p>'
+        }
+    }
+
+    // Nextput the teams in their starting postions
+    // First FOUR
+    for (i=0; i<4; i++) {
+        var matchId = "match" + (100 + i)
+        if (document.getElementById(matchId)) {
+            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="seed">' + firstFourTeams[i][0] + '</span><span class="team"> ' + firstFourTeams[i][1] + ' </span>'
+            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="seed">' + firstFourTeams[i][2] + '</span><span class="team"> ' + firstFourTeams[i][3] + ' </span>'
+        } else {
+            console.debug("missing: " + matchId)
+        }
     }
 }
 
-// Nextput the teams in their starting postions
-// First FOUR
-for (i=0; i<4; i++) {
-    var matchId = "match" + (100 + i)
-    if (document.getElementById(matchId)) {
-        document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="seed">' + firstFourTeams[i][0] + '</span><span class="team"> ' + firstFourTeams[i][1] + ' </span>'
-        document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="seed">' + firstFourTeams[i][2] + '</span><span class="team"> ' + firstFourTeams[i][3] + ' </span>'
-    } else {
-        console.debug("missing: " + matchId)
-    }
-}
+function advanceEverybody() {
 // We need to play the firstFour so we know who is in the main bracket
-advanceFirstFourWinners()
+    console.clear()
+    advanceFirstFourWinners()
 
-// Main Bracket
-for (i=0; i<32; i++) {
-    var matchId = "match" + (i + 1)
-    if (document.getElementById(matchId)) {
-        document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="seed">' + teams[i][0] + '</span><span class="team"> ' + teams[i][1] + ' </span>'
-        document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="seed">' + teams[i][2] + '</span><span class="team"> ' + teams[i][3] + ' </span>'
-    } else {
-        console.debug("missing: " + matchId)
+    // Main Bracket
+    for (i=0; i<32; i++) {
+        var matchId = "match" + (i + 1)
+        if (document.getElementById(matchId)) {
+            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="seed">' + teams[i][0] + '</span><span class="team"> ' + teams[i][1] + ' </span>'
+            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="seed">' + teams[i][2] + '</span><span class="team"> ' + teams[i][3] + ' </span>'
+        } else {
+            console.debug("missing: " + matchId)
+        }
     }
+
+    // var timeout = 1000
+    // window.setTimeout(function(){ advanceWinner(0,  32, true) },timeout)
+    // window.setTimeout(function(){ advanceWinner(32, 48, true) },timeout*2)
+    // window.setTimeout(function(){ advanceWinner(48, 56, true) },timeout*3)
+    // window.setTimeout(function(){ advanceWinner(56, 60, true) },timeout*4)
+    // window.setTimeout(function(){ advanceWinner(60, 62, true) },timeout*5)
+    // window.setTimeout(function(){ advanceWinner(62, 63, false) },timeout*6)
+
+    advanceWinner(0,  32, true)
+    advanceWinner(32, 48, true)
+    advanceWinner(48, 56, true)
+    advanceWinner(56, 60, true)
+    advanceWinner(60, 62, true)
+    advanceWinner(62, 63, false)
 }
-
-// var timeout = 1000
-// window.setTimeout(function(){ advanceWinner(0,  32, true) },timeout)
-// window.setTimeout(function(){ advanceWinner(32, 48, true) },timeout*2)
-// window.setTimeout(function(){ advanceWinner(48, 56, true) },timeout*3)
-// window.setTimeout(function(){ advanceWinner(56, 60, true) },timeout*4)
-// window.setTimeout(function(){ advanceWinner(60, 62, true) },timeout*5)
-// window.setTimeout(function(){ advanceWinner(62, 63, false) },timeout*6)
-
-advanceWinner(0,  32, true)
-advanceWinner(32, 48, true)
-advanceWinner(48, 56, true)
-advanceWinner(56, 60, true)
-advanceWinner(60, 62, true)
-advanceWinner(62, 63, false)
 // Now find the winners
 function advanceWinner(start, stop, doAdvance) {
     for (i=start; i<stop; i++) {
@@ -425,11 +438,28 @@ function playThem(seed1, seed2) {
     // f(0) = 0.5 -- even odds
     // f(15) = 0.99 -- seed1 99% win rate, 1 seed vs 16
     var x = seed2 - seed1
-    var b = 0.6
-    var a = 0.49/Math.pow(15, b)
-    var factor = (a * Math.pow(x, b)) + 0.5
 
-    // console.log("rand: " + precisionRound(rand, 2) + " factor: " + precisionRound(factor,2))
+    var at15 = 0.99
+    var b = 0.6
+    var factor = 0.9999
+    var insane = document.getElementById("insanity").valueAsNumber - 0.00001
+    if (insane < 3) {
+        factor = 1.0
+    } else if (insane < 75) {
+        b = insane/75.0
+        var maxY = at15 - 0.5
+        var a = maxY/Math.pow(15, b)
+        factor = (a * Math.pow(x, b)) + 0.5
+    } else {
+        // Use a linear equation
+        // f(0) = 0.5
+        // f(15) = at15
+        // Gradually decrease the y-value at x=15 until it becomes 0.5 (even odds)
+        at15 = 2.46 - 0.0196 * insane
+        factor = (at15 - 0.5)/15.0 + 0.5
+    }
+
+    console.log("x = " + x + " factor = " + factor + " at15 = " + at15)
 
     if (rand > factor) {
         return switched ? 1 : 2
@@ -447,22 +477,7 @@ function precisionRound(number, precision) {
   var factor = Math.pow(10, precision);
   return Math.round(number * factor) / factor;
 }
-// for (i=1; i<67; i++) {
-//   if (document.getElementById("match" + i)) {
-//     // document.getElementById("match" + i).getElementsByClassName("slot slot1")[0].innerHTML = "match" + i + " id" + (((65-i)*2))
-//     // document.getElementById("match" + i).getElementsByClassName("slot slot2")[0].innerHTML = "match" + i + " id" + (((65-i)*2) - 1)
-//
-//     document.getElementById("match" + i).getElementsByClassName("slot slot1")[0].innerHTML =   document.getElementById("match" + i).getElementsByClassName("slot slot1")[0].getElementsByClassName("team")[0].textContent
-//     document.getElementById("match" + i).getElementsByClassName("slot slot2")[0].innerHTML = document.getElementById("match" + i).getElementsByClassName("slot slot2")[0].getElementsByClassName("seed")[0].textContent
-//   } else {
-//     console.debug("missing: " + i)
-//   }
-// }
-// --------------------------------
 
-// document.getElementById("id6").innerHTML += "Testing_6"
-// document.getElementById("id2").innerHTML = '<span class="winner"><span class="seed">0</span> One more time </span>';
-// document.getElementById("id1").class = 'winner'
 </script>
 </body>
 </html>
