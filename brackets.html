@@ -25,17 +25,17 @@
         <th class="round_1 current"> 1st ROUND </th>
       </tr>
       <tr>
-        <td class="current"> March 18-19 </td>
-        <td> March 20-21 </td>
-        <td> March 25-26 </td>
-        <td> March 27-28 </td>
-        <td> April 3 </td>
-        <td> April 5 </td>
-        <td> April 3 </td>
-        <td> March 27-28 </td>
-        <td> March 25-26 </td>
-        <td> March 20-21 </td>
-        <td class="current"> March 18-19 </td>
+        <td class="current"> March 15-16 </td>
+        <td> March 17-18 </td>
+        <td> March 22-23 </td>
+        <td> March 24-25 </td>
+        <td> March 31 </td>
+        <td> April 2 </td>
+        <td> March 31 </td>
+        <td> March 24-25 </td>
+        <td> March 22-23 </td>
+        <td> March 17-18 </td>
+        <td class="current"> March 15-16 </td>
       </tr>
     </table>
   </div>
@@ -44,7 +44,6 @@
 
   <div id="bracket">
     <div class="centered instructions">
-        Projected Teams!!! Real teams and seeds coming Monday March 12th. <p>
             <!-- Click the slider to recalculate. Move the slider to change the odds. <p> -->
             Boring<input id="insanity" type="range" onclick=advanceEverybody()>Insane</input>
     </div>
@@ -249,48 +248,48 @@
 <script>
 
 var firstFourTeams = [
-    [16, "Texas", 16, "USC", 28], // go to West  28,
-    [11, "SE Louisiana", 11, "ArkansaPine Bluff", 12],  // go to South 12
-    [11, "Louisville", 11, "UCLA", 4], // go to EAST, 4
-    [16, "Hampton", 16, "LIU Brooklyn", 0], // go to EAST, 0,1
+    [16, "N.C. Central", 16, "Texas Southern", 24], // go to West  24,
+    [11, "Arizona St", 11, "Syrcuse", 20],  // go to Midwest 20
+    [11, "St Bonaventure", 11, "UCLA", 4], // go to EAST, 4
+    [16, "LIU Brooklyn", 16, "Radford", 0], // go to EAST, 0,1
 ]
 var teams = [
   // East
   [1, "Villanova", 16, "ff1"],
-  [8, "Rhode Island", 9, "NC St"],
-  [5, "Florida", 12, "Louisiana"],
-  [4, "Gonzaga", 13, "Murray St"],
-  [6, "TCU", 11, "ff2"],
-  [3, "Michigan", 14, "Bucknell"],
-  [7, "Arkansas", 10, "Providence"],
-  [2, "Duke", 15, "Lipscomb"],
+  [8, "Virginia Tech", 9, "Alabama"],
+  [5, "West Virginia", 12, "Murray State"],
+  [4, "Wichita St", 13, "Marshall"],
+  [6, "Florida", 11, "ff2"],
+  [3, "Texas Tech", 14, "SF Austin"],
+  [7, "Arkansas", 10, "Butler"],
+  [2, "Purdue", 15, "CS Fullerton"],
   // South
-  [1, "Virginia", 16, "ff3"], //  <---------------
-  [8, "Missouri", 9, "Tennessee"],
-  [5, "Ohio St", 12, "Middle Tennessee"],
-  [4, "Texas Tech", 13, "Buffalo"],
-  [6, "Miami", 11, "Baylor"],
-  [3, "Auburn", 14, "Charleston"],
-  [7, "Seton Hall", 10, "Kansas St"],
-  [2, "Cincinnati", 15, "Iona"],
+  [1, "Virginia", 16, "UMBC"], //  <---------------
+  [8, "Creighton", 9, "Kansas State"],
+  [5, "Kentucky", 12, "Davidson"],
+  [4, "Arizona", 13, "Buffalo"],
+  [6, "Miami FL", 11, "Loyola Chicago"],
+  [3, "Tennessee", 14, "Wright State"],
+  [7, "Nevada", 10, "Texas"],
+  [2, "Cincinnati", 15, "Georgia State"],
   // Midwest
-  [1, "Xavier", 16, "Harvard"],
-  [8, "Virginia Tech", 9, "Oklahoma"],
-  [5, "Clemson", 12, "Loyola-Chicago"],
-  [4, "Wichita St", 13, "Vermont"],
-  [6, "Nevada", 11, "Arizona St"],
-  [3, "Tennessee", 14, "Montana"],
-  [7, "Texas A&M", 10, "Saint Mary's"],
-  [2, "Purdue", 15, "Wright St"],
+  [1, "Kansas", 16, "Penn"],
+  [8, "Seton Hall", 9, "NC State"],
+  [5, "Clemson", 12, "New Mexico State"],
+  [4, "Auburn", 13, "Charleston"],
+  [6, "TCU", 11, "ff"],
+  [3, "Michigan State", 14, "Bucknell"],
+  [7, "Rhode Island", 10, "Oklahoma"],
+  [2, "Duke", 15, "Iona"],
   // West
-  [1, "Kansas", 16, "Radford"],
-  [8, "Creighton", 9, "Florida St"],
-  [5, "West Virginia", 12, "New Mexico St"],
-  [4, "Arizona", 13, "South Dakota St"],
-  [6, "Kentucky", 11, "ff4"],
-  [3, "Michigan St", 14, "UNC Greensboro"],
-  [7, "Houston", 10, "St Bonaventure"],
-  [2, "North Carolina", 15, "UC Davis"]
+  [1, "Xavier", 16, "ff"],
+  [8, "Missouri", 9, "Florida State"],
+  [5, "Ohio State", 12, "South Dakota State"],
+  [4, "Gonzaga", 13, "UNC Greensboro"],
+  [6, "Houston", 11, "San Diego State"],
+  [3, "Michigan", 14, "Montana"],
+  [7, "Texas A&M", 10, "Providence"],
+  [2, "North Carolina", 15, "Lipscomb"]
 ]
 
 setup();
