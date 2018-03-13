@@ -234,10 +234,10 @@
             <h3 class="region1 first_region">
               First Four
             </h3>
-            <div id="match100" class="match m1"></div>
-            <div id="match101" class="match m2"></div>
-            <div id="match102" class="match m3"></div>
-            <div id="match103" class="match m4"></div>
+            <div id="match-16" class="match m1"></div>
+            <div id="match-24" class="match m2"></div>
+            <div id="match-56" class="match m3"></div>
+            <div id="match-64" class="match m4"></div>
           </div>
       </div>
   </div>
@@ -300,8 +300,8 @@ function setup() {
 // This is hard coded to only work for a tournament with 64 main teams (the first round is handled separately)
 // First create the slots that the teams will go into
 // First FOUR
-    for(i=100; i<104; i++) {
-        var matchId = "match" + i
+    for(i=0; i<4; i++) {
+        var matchId = "match" + ((firstFourTeams[i][4] + 1) * 2 - 66);
         if (document.getElementById(matchId)) {
             document.getElementById(matchId).innerHTML = '<p class="slot slot1" ></p><p class="slot slot2" ></p>'
         }
@@ -317,7 +317,7 @@ function setup() {
     // Nextput the teams in their starting postions
     // First FOUR
     for (i=0; i<4; i++) {
-        var matchId = "match" + (100 + i)
+        var matchId = "match" + ((firstFourTeams[i][4] + 1) * 2 - 66);
         if (document.getElementById(matchId)) {
             document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="seed">' + firstFourTeams[i][0] + '</span><span class="team"> ' + firstFourTeams[i][1] + ' </span>'
             document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="seed">' + firstFourTeams[i][2] + '</span><span class="team"> ' + firstFourTeams[i][3] + ' </span>'
@@ -374,33 +374,38 @@ function advanceWinner(start, stop, doAdvance) {
             winnerSeed = seeds[0]
             loserSeed = seeds[1]
             // mark the winner and loser
-            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="winner"><span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span></span>'
-            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="loser"><span class="seed">' + loserSeed + '</span><span class="team"> ' + loserName + ' </span></span>'
+            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<div onclick=changeWinner(this)> <span class="winner"><span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span></span></div>'
+            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<div onclick=changeWinner(this)><span class="loser"><span class="seed">' + loserSeed + '</span><span class="team"> ' + loserName + ' </span></span></div>'
         } else {
             winnerName = document.getElementById(matchId).getElementsByClassName("slot slot2")[0].getElementsByClassName("team")[0].textContent
             loserName = document.getElementById(matchId).getElementsByClassName("slot slot1")[0].getElementsByClassName("team")[0].textContent
             winnerSeed = seeds[1]
             loserSeed = seeds[0]
-            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="loser"><span class="seed">' + loserSeed + '</span><span class="team"> ' + loserName + ' </span></span>'
-            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="winner"><span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span></span>'
+            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<div onclick=changeWinner(this)><span class="loser"><span class="seed">' + loserSeed + '</span><span class="team"> ' + loserName + ' </span></span></div>'
+            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<div onclick=changeWinner(this)><span class="winner"><span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span></span></div>'
         }
 
         if (doAdvance) {
-            var newMatchId = "match" + Math.trunc((65 + i + 1)/2)
-            // odd ids (id = i + 1) go into slot1 in the new, even in slot2
-            if (Math.trunc(i + 1) % 2 == 1) {
-                document.getElementById(newMatchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span>'
-            } else {
-                document.getElementById(newMatchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span>'
-            }
+            advanceWinnerToNext(i, winnerName, winnerSeed);
         }
     }
+}
+
+function advanceWinnerToNext(id, winnerName, winnerSeed) {
+    var newMatchId = "match" + Math.trunc((65 + id + 1)/2)
+    // odd ids (id = i + 1) go into slot1 in the new, even in slot2
+    if (Math.trunc(id + 1) % 2 == 1) {
+        document.getElementById(newMatchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span>'
+    } else {
+        document.getElementById(newMatchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span>'
+    }
+    return newMatchId;
 }
 
 
 function advanceFirstFourWinners() {
     for (i=0; i<4; i++) {
-        var matchId = "match" + (100 + i)
+        var matchId = "match" + ((firstFourTeams[i][4] + 1) * 2 - 66);
         seed = firstFourTeams[i][0]
         var winner = playThem(seed, seed)
         var winnerName = ""
@@ -409,18 +414,32 @@ function advanceFirstFourWinners() {
             winnerName = firstFourTeams[i][1]
             loserName = firstFourTeams[i][3]
                         // mark the winner and loser
-            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="winner"><span class="seed">' + seed + '</span><span class="team"> ' + winnerName + ' </span></span>'
-            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="loser"><span class="seed">' + seed + '</span><span class="team"> ' + loserName + ' </span></span>'
+            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<div onclick=changeWinner(this)><span class="winner"><span class="seed">' + seed + '</span><span class="team"> ' + winnerName + ' </span></span></div>'
+            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<div onclick=changeWinner(this)><span class="loser"><span class="seed">' + seed + '</span><span class="team"> ' + loserName + ' </span></span></div>'
         } else {
             winnerName = firstFourTeams[i][3]
             loserName = firstFourTeams[i][1]
-            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="loser"><span class="seed">' + seed + '</span><span class="team"> ' + loserName + ' </span></span>'
-            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="winner"><span class="seed">' + seed + '</span><span class="team"> ' + winnerName + ' </span></span>'
+            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<div onclick=changeWinner(this)><span class="loser"><span class="seed">' + seed + '</span><span class="team"> ' + loserName + ' </span></span></div>'
+            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<div onclick=changeWinner(this)><span class="winner"><span class="seed">' + seed + '</span><span class="team"> ' + winnerName + ' </span></span></div>'
         }
 
         // Advance them by putting them in the main teams array
         teams[firstFourTeams[i][4]][3] = winnerName
     }
+}
+
+function changeWinner(e) {
+    var teamName = e.getElementsByClassName("team")[0].textContent;
+    var teamSeed = e.getElementsByClassName("seed")[0].textContent;
+
+    // need to change class to winner for clicked item and loser on other one.
+
+    var parSpan = e.parentElement;
+    var matchId = e.parentElement.parentElement.id
+    var id = parseInt(matchId.replace("match", ""))
+
+    // console.log("clicked matchId: " + matchId + " id: " + id)
+
 }
 
 function playThem(seed1, seed2) {
