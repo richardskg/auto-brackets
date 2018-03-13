@@ -314,7 +314,7 @@ function setup() {
         }
     }
 
-    // Nextput the teams in their starting postions
+    // Next put the teams in their starting postions
     // First FOUR
     for (i=0; i<4; i++) {
         var matchId = "match" + ((firstFourTeams[i][4] + 1) * 2 - 66);
@@ -374,15 +374,15 @@ function advanceWinner(start, stop, doAdvance) {
             winnerSeed = seeds[0]
             loserSeed = seeds[1]
             // mark the winner and loser
-            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<div onclick=changeWinner(this)> <span class="winner"><span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span></span></div>'
-            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<div onclick=changeWinner(this)><span class="loser"><span class="seed">' + loserSeed + '</span><span class="team"> ' + loserName + ' </span></span></div>'
+            setHtml(matchId, 1, winnerSeed, winnerName, true)
+            setHtml(matchId, 2, loserSeed, loserName, false)
         } else {
             winnerName = document.getElementById(matchId).getElementsByClassName("slot slot2")[0].getElementsByClassName("team")[0].textContent
             loserName = document.getElementById(matchId).getElementsByClassName("slot slot1")[0].getElementsByClassName("team")[0].textContent
             winnerSeed = seeds[1]
             loserSeed = seeds[0]
-            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<div onclick=changeWinner(this)><span class="loser"><span class="seed">' + loserSeed + '</span><span class="team"> ' + loserName + ' </span></span></div>'
-            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<div onclick=changeWinner(this)><span class="winner"><span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span></span></div>'
+            setHtml(matchId, 1, loserSeed, loserName, false)
+            setHtml(matchId, 2, winnerSeed, winnerName, true)
         }
 
         if (doAdvance) {
@@ -414,18 +414,24 @@ function advanceFirstFourWinners() {
             winnerName = firstFourTeams[i][1]
             loserName = firstFourTeams[i][3]
                         // mark the winner and loser
-            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<div onclick=changeWinner(this)><span class="winner"><span class="seed">' + seed + '</span><span class="team"> ' + winnerName + ' </span></span></div>'
-            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<div onclick=changeWinner(this)><span class="loser"><span class="seed">' + seed + '</span><span class="team"> ' + loserName + ' </span></span></div>'
+            setHtml(matchId, 1, seed, winnerName, true)
+            setHtml(matchId, 2, seed, loserName, false)
         } else {
             winnerName = firstFourTeams[i][3]
             loserName = firstFourTeams[i][1]
-            document.getElementById(matchId).getElementsByClassName("slot slot1")[0].innerHTML = '<div onclick=changeWinner(this)><span class="loser"><span class="seed">' + seed + '</span><span class="team"> ' + loserName + ' </span></span></div>'
-            document.getElementById(matchId).getElementsByClassName("slot slot2")[0].innerHTML = '<div onclick=changeWinner(this)><span class="winner"><span class="seed">' + seed + '</span><span class="team"> ' + winnerName + ' </span></span></div>'
+            setHtml(matchId, 1, seed, loserName, false)
+            setHtml(matchId, 2, seed, winnerName, true)
         }
 
         // Advance them by putting them in the main teams array
         teams[firstFourTeams[i][4]][3] = winnerName
     }
+}
+
+function setHtml(matchId, slotId, seed, name, isWinner) {
+    var slotClass = slotId == 1 ? "slot slot1" : "slot slot2"
+    var winnerClass = isWinner ? "winner" : "loser"
+    document.getElementById(matchId).getElementsByClassName(slotClass)[0].innerHTML = '<div onclick=changeWinner(this)><span class="' + winnerClass + '"><span class="seed">' + seed + '</span><span class="team"> ' + name + ' </span></span></div>'
 }
 
 function changeWinner(e) {
