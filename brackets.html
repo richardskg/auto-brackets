@@ -54,7 +54,7 @@
 
       <div class="region region1">
         <h4 class="region1 first_region">
-          MIDWEST
+          SOUTH
         </h4>
         <div id="match17" class="match m1"></div>
         <div id="match18" class="match m2"></div>
@@ -67,7 +67,7 @@
       </div>
       <div class="region region2">
         <h4 class="region2 first_region">
-          West
+          WEST
         </h4>
         <div id="match25" class="match m1"></div>
         <div id="match26" class="match m2"></div>
@@ -93,7 +93,7 @@
       </div>
       <div class="region region4">
         <h4 class="region4 first_region">
-          South
+          MIDWEST
         </h4>
         <div id="match9" class="match m1"></div>
         <div id="match10" class="match m2"></div>
@@ -111,7 +111,7 @@
       </h3>
       <div class="region region1">
         <h4 class="region1">
-          MIDWEST
+          SOUTH
         </h4>
         <div id="match41" class="match m1"></div>
         <div id="match42" class="match m2"></div>
@@ -129,7 +129,7 @@
       </div>
       <div class="region region3">
         <h4 class="region3">
-          East
+          EAST
         </h4>
         <div id="match33" class="match m1"></div>
         <div id="match34" class="match m2"></div>
@@ -138,7 +138,7 @@
       </div>
       <div class="region region4">
         <h4 class="region4">
-          South
+          MIDWEST
         </h4>
         <div id="match37" class="match m1"></div>
         <div id="match38" class="match m2"></div>
@@ -152,28 +152,28 @@
       </h3>
       <div class="region region1">
         <h4 class="region1">
-          Midwest
+          SOUTH
         </h4>
         <div id="match53" class="match m1"></div>
         <div id="match54" class="match m2"></div>
       </div>
       <div class="region region2">
         <h4 class="region2">
-          West
+          WEST
         </h4>
         <div id="match55" class="match m1"></div>
         <div id="match56" class="match m2"></div>
       </div>
       <div class="region region3">
         <h4 class="region3">
-          East
+          EAST
         </h4>
         <div id="match49" class="match m1"></div>
         <div id="match50" class="match m2"></div>
       </div>
       <div class="region region4">
         <h4 class="region4">
-          South
+          MIDWEST
         </h4>
         <div id="match51" class="match m1"></div>
         <div id="match52" class="match m2"></div>
@@ -185,25 +185,25 @@
       </h3>
       <div class="region region1">
         <h4 class="region1">
-          Midwest
+          SOUTH
         </h4>
         <div id="match59" class="match m1"></div>
       </div>
       <div class="region region2">
         <h4 class="region2">
-          West
+          WEST
         </h4>
         <div id="match60" class="match m1"></div>
       </div>
       <div class="region region3">
         <h4 class="region3">
-          East
+          EAST
         </h4>
         <div id="match57" class="match m1"></div>
       </div>
       <div class="region region4">
         <h4 class="region4">
-          South
+          MIDWEST
         </h4>
         <div id="match58" class="match m1"></div>
       </div>
@@ -213,8 +213,8 @@
         Round Five (2010 NCAA Men's Basketball Tournament)
       </h3>
       <div class="region">
-        <div id="match61" class="match m1"></div>
-        <div id="match62" class="match m2"></div>
+        <div id="match62" class="match m1"></div>
+        <div id="match61" class="match m2"></div>
       </div>
     </div>
     <div id="round6" class="round">
@@ -235,7 +235,7 @@
               First Four
             </h3>
             <div id="match-16" class="match m1"></div>
-            <div id="match-24" class="match m2"></div>
+            <div id="match-40" class="match m2"></div>
             <div id="match-56" class="match m3"></div>
             <div id="match-64" class="match m4"></div>
           </div>
@@ -249,7 +249,7 @@
 
 var firstFourTeams = [
     [16, "N.C. Central", 16, "Texas Southern", 24], // go to West  24,
-    [11, "Arizona St", 11, "Syrcuse", 20],  // go to Midwest 20
+    [11, "Arizona St", 11, "Syracuse", 12],  // go to Midwest 20
     [11, "St Bonaventure", 11, "UCLA", 4], // go to EAST, 4
     [16, "LIU Brooklyn", 16, "Radford", 0], // go to EAST, 0,1
 ]
@@ -263,15 +263,6 @@ var teams = [
   [3, "Texas Tech", 14, "SF Austin"],
   [7, "Arkansas", 10, "Butler"],
   [2, "Purdue", 15, "CS Fullerton"],
-  // South
-  [1, "Virginia", 16, "UMBC"], //  <---------------
-  [8, "Creighton", 9, "Kansas State"],
-  [5, "Kentucky", 12, "Davidson"],
-  [4, "Arizona", 13, "Buffalo"],
-  [6, "Miami FL", 11, "Loyola Chicago"],
-  [3, "Tennessee", 14, "Wright State"],
-  [7, "Nevada", 10, "Texas"],
-  [2, "Cincinnati", 15, "Georgia State"],
   // Midwest
   [1, "Kansas", 16, "Penn"],
   [8, "Seton Hall", 9, "NC State"],
@@ -281,6 +272,15 @@ var teams = [
   [3, "Michigan State", 14, "Bucknell"],
   [7, "Rhode Island", 10, "Oklahoma"],
   [2, "Duke", 15, "Iona"],
+    // South
+  [1, "Virginia", 16, "UMBC"],
+  [8, "Creighton", 9, "Kansas State"],
+  [5, "Kentucky", 12, "Davidson"],
+  [4, "Arizona", 13, "Buffalo"],
+  [6, "Miami FL", 11, "Loyola Chicago"],
+  [3, "Tennessee", 14, "Wright State"],
+  [7, "Nevada", 10, "Texas"],
+  [2, "Cincinnati", 15, "Georgia State"],
   // West
   [1, "Xavier", 16, "ff"],
   [8, "Missouri", 9, "Florida State"],
