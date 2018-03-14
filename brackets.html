@@ -364,37 +364,43 @@ function advanceWinner(start, stop, doAdvance) {
         var matchId = "match" + (i + 1)
         var seeds = getSeeds(matchId)
         var winner = playThem(seeds[0], seeds[1])
-        var winnerName = ""
-        var loserName = ""
-        var winnerSeed = 0
-        var loserSeed = 0
-        if (winner == 1) {
-            winnerName = document.getElementById(matchId).getElementsByClassName("slot slot1")[0].getElementsByClassName("team")[0].textContent
-            loserName = document.getElementById(matchId).getElementsByClassName("slot slot2")[0].getElementsByClassName("team")[0].textContent
-            winnerSeed = seeds[0]
-            loserSeed = seeds[1]
-            // mark the winner and loser
-            setHtml(matchId, 1, winnerSeed, winnerName, true)
-            setHtml(matchId, 2, loserSeed, loserName, false)
-        } else {
-            winnerName = document.getElementById(matchId).getElementsByClassName("slot slot2")[0].getElementsByClassName("team")[0].textContent
-            loserName = document.getElementById(matchId).getElementsByClassName("slot slot1")[0].getElementsByClassName("team")[0].textContent
-            winnerSeed = seeds[1]
-            loserSeed = seeds[0]
-            setHtml(matchId, 1, loserSeed, loserName, false)
-            setHtml(matchId, 2, winnerSeed, winnerName, true)
-        }
+        var winnerObj = setWinnersAndLosers(matchId, winner, seeds)
 
         if (doAdvance) {
-            advanceWinnerToNext(i, winnerName, winnerSeed);
+            advanceWinnerToNext(i+1, winnerObj.winnerName, winnerObj.winnerSeed);
         }
     }
 }
 
+function setWinnersAndLosers(matchId, winnerSlot, seeds) {
+    var winnerObj = new Object()
+    var winnerName = ""
+    var winnerSeed = 0
+    if (winnerSlot == 1) {
+        winnerName = document.getElementById(matchId).getElementsByClassName("slot slot1")[0].getElementsByClassName("team")[0].textContent
+        var loserName = document.getElementById(matchId).getElementsByClassName("slot slot2")[0].getElementsByClassName("team")[0].textContent
+        winnerSeed = seeds[0]
+        var loserSeed = seeds[1]
+        // mark the winner and loser
+        setHtml(matchId, 1, winnerSeed, winnerName, true)
+        setHtml(matchId, 2, loserSeed, loserName, false)
+    } else {
+        winnerName = document.getElementById(matchId).getElementsByClassName("slot slot2")[0].getElementsByClassName("team")[0].textContent
+        var loserName = document.getElementById(matchId).getElementsByClassName("slot slot1")[0].getElementsByClassName("team")[0].textContent
+        winnerSeed = seeds[1]
+        var loserSeed = seeds[0]
+        setHtml(matchId, 1, loserSeed, loserName, false)
+        setHtml(matchId, 2, winnerSeed, winnerName, true)
+    }
+    winnerObj.winnerName = winnerName
+    winnerObj.winnerSeed = winnerSeed
+    return winnerObj
+}
+
 function advanceWinnerToNext(id, winnerName, winnerSeed) {
-    var newMatchId = "match" + Math.trunc((65 + id + 1)/2)
+    var newMatchId = "match" + Math.trunc((65 + id)/2)
     // odd ids (id = i + 1) go into slot1 in the new, even in slot2
-    if (Math.trunc(id + 1) % 2 == 1) {
+    if (Math.trunc(id) % 2 == 1) {
         document.getElementById(newMatchId).getElementsByClassName("slot slot1")[0].innerHTML = '<span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span>'
     } else {
         document.getElementById(newMatchId).getElementsByClassName("slot slot2")[0].innerHTML = '<span class="seed">' + winnerSeed + '</span><span class="team"> ' + winnerName + ' </span>'
@@ -434,18 +440,40 @@ function setHtml(matchId, slotId, seed, name, isWinner) {
     document.getElementById(matchId).getElementsByClassName(slotClass)[0].innerHTML = '<div onclick=changeWinner(this)><span class="' + winnerClass + '"><span class="seed">' + seed + '</span><span class="team"> ' + name + ' </span></span></div>'
 }
 
+// clickhandler for when the user clicks on a team. Make that team the new winner
+// and propagate to the end.
 function changeWinner(e) {
     var teamName = e.getElementsByClassName("team")[0].textContent;
     var teamSeed = e.getElementsByClassName("seed")[0].textContent;
 
     // need to change class to winner for clicked item and loser on other one.
-
-    var parSpan = e.parentElement;
+    var slotId = e.parentElement.classList[1] == "slot1" ? 1 : 2
     var matchId = e.parentElement.parentElement.id
     var id = parseInt(matchId.replace("match", ""))
+    var seeds = getSeeds(matchId)
+    var winnerObj = setWinnersAndLosers(matchId, slotId, seeds)
+    var newMatchId = advanceWinnerToNext(id, winnerObj.winnerName, winnerObj.winnerSeed);
+    propagateWinner(newMatchId)
+}
 
-    // console.log("clicked matchId: " + matchId + " id: " + id)
+// After the user clicks on a team to make them a winner, we
+// need to keep running the simulation again.
+function propagateWinner(matchId) {
+    var maxID = 63
+    var seeds = getSeeds(matchId)
+    var winner = playThem(seeds[0], seeds[1])
+    var winnerObj = setWinnersAndLosers(matchId, winner, seeds)
 
+    var id = parseInt(matchId.replace("match", ""))
+    var doAdvance = id < maxID
+    if (doAdvance) {
+        matchId = advanceWinnerToNext(id, winnerObj.winnerName, winnerObj.winnerSeed);
+    }
+    id = parseInt(matchId.replace("match", ""))
+    doAdvance = id < 63
+    if (doAdvance) {
+        propagateWinner(matchId)
+    }
 }
 
 function playThem(seed1, seed2) {
